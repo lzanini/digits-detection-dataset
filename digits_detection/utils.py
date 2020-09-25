@@ -45,3 +45,4 @@ def plot_image(image, classes, boxes):
         ax.add_patch(rect)
     plt.axis('off')
     plt.tight_layout()
+    plt.show()
