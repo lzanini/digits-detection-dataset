@@ -174,19 +174,3 @@ class DigitsDetectionDataset(Dataset):
 
     def __len__(self):
         return len(self.data["image"])
-
-
-if __name__ == '__main__':
-
-    detection_dataset = DigitsDetectionDataset(mnist_root="../data/",
-                                               dataset_length=40000,
-                                               image_resolution=(128, 128),
-                                               max_digits=5,
-                                               min_size=20,
-                                               max_size=20*2,
-                                               margin=6)
-
-    from digits_detection.utils import plot_image
-    i = random.randint(0, len(detection_dataset))
-    image_, (classes_, boxes_) = detection_dataset[i]
-    plot_image(image_, classes_, boxes_)
