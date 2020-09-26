@@ -82,16 +82,16 @@ class DigitsDetectionDataset(Dataset):
             "max_size": max_size,
             "margin": margin
         }
-        self.data = {"image": [], "classes": [], "boxes": []}
+        self.data = {"mnist_indices": [], "classes": [], "boxes": []}
         self.mnist = CroppedMnistDataset(root=mnist_root, train=train)
         self.build_dataset(dataset_length)
 
     def build_dataset(self, dataset_length):
-        print("Building Mnist Detection dataset...")
+        print("Building Digits Detection dataset...")
         start = time()
         for idx in range(dataset_length):
-            image, boxes, classes = self.generate_sample()
-            self.data["image"].append(image)
+            indices, boxes, classes = self.generate_sample()
+            self.data["mnist_indices"].append(indices)
             self.data["boxes"].append(boxes)
             self.data["classes"].append(classes)
             print(f"\r{idx}/{dataset_length}", end="")
@@ -105,9 +105,10 @@ class DigitsDetectionDataset(Dataset):
         """
         # Number of digits in the image
         nb_digits = random.randint(1, self.params["max_digits"])
-        image = torch.zeros(self.params["image_resolution"])
+
         classes = []
         boxes = []
+        indices = []
 
         for _ in range(nb_digits):
 
@@ -143,13 +144,12 @@ class DigitsDetectionDataset(Dataset):
                 is_collision = any(overlap(box, other) for other in boxes)
 
                 if not is_collision:
-                    resized = torch.nn.functional.interpolate(img[None, None, :, :], (size_x, size_y))[0, 0]
-                    image[position_x:position_x + size_x, position_y:position_y + size_y] = resized
+                    indices.append(object_idx)
                     classes.append(torch.tensor(cls))
                     boxes.append(box)
 
         boxes = [torch.tensor(box) for box in boxes]
-        return image, torch.stack(boxes), torch.stack(classes)
+        return indices, torch.stack(boxes), torch.stack(classes)
 
     def __getitem__(self, index):
         """
@@ -167,7 +167,19 @@ class DigitsDetectionDataset(Dataset):
                 Box localization (x1, x2, y1, y2) for each instance.
 
         """
-        image = self.data["image"][index]
+        image = torch.zeros(self.params["image_resolution"])
+        for idx, box in zip(self.data["mnist_indices"][index], self.data["boxes"][index]):
+            img, _ = self.mnist[idx]
+
+            x1, y1, x2, y2 = box
+            pos_x = x1 + self.params["margin"]
+            pos_y = y2 + self.params["margin"]
+            size_x = x2 - x1 - 2 * self.params["margin"]
+            size_y = y1 - y2 - 2 * self.params["margin"]
+
+            resized = torch.nn.functional.interpolate(img[None, None, :, :], (size_x, size_y))[0, 0]
+            image[pos_x:pos_x + size_x, pos_y:pos_y + size_y] = resized
+
         classes = self.data["classes"][index]
         boxes = self.data["boxes"][index]
         return image, (classes, boxes)
