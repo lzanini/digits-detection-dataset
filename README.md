@@ -1,6 +1,8 @@
 ## Digits detection dataset
 
-
+<p align="center">
+  <img src="https://github.com/lzanini/digits-detection-dataset/blob/master/img/figure.png">
+</p>
 
 I implemented this Pytorch Dataset to experiment with object detection.
 It consists in images containing one of several MNIST digits of various shapes and sizes, and their corresponding labels and box positions.
