@@ -4,9 +4,9 @@
   <img src="https://github.com/lzanini/digits-detection-dataset/blob/master/img/figure.png">
 </p>
 
-I implemented this Pytorch Dataset to experiment with object detection in a simple setting. It consists of images containing one or several MNIST digits of various shapes and sizes, and their corresponding labels and box positions. Images are generated ahead of time, when initializing the Dataset. Several parameters are available, such as the number of images to generate, the resolution, the size of the digits, the maximum number of digits per image, or the margin of boxes. It can also be generated either from the train / test MNIST partitions.
+I implemented this Pytorch Dataset to experiment with object detection in a simple setting. It consists of images containing one or several MNIST digits of various shapes and sizes, and their corresponding labels and box positions. Images are generated ahead of time, when initializing the Dataset. Several parameters are available, such as the number of images to generate, the resolution, the size of the digits, the maximum number of digits per image, or the margin of boxes. It can also be generated from either the train or the test MNIST partition.
 
-The mnist dataset will be downloaded and saved in the folder <mnist_root> the first time the program is run; then is will loaded from the disk.
+The mnist dataset will be downloaded and saved in the folder <mnist_root> when the program is run for the first time; then is will loaded from the disk.
 
 ## Usage
 
