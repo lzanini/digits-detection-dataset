@@ -1,4 +1,4 @@
-## Digits detection dataset
+## MNIST detection dataset
 
 <p align="center">
   <img src="https://github.com/lzanini/digits-detection-dataset/blob/master/img/figure.png">
