@@ -1,10 +1,10 @@
 ## MNIST Detection Dataset
 
+A Pytorch Dataset of images containing MNIST digits of various shapes and sizes, and their corresponding labels and box positions. 
+
 <p align="center">
   <img src="https://github.com/lzanini/digits-detection-dataset/blob/master/img/figure.png">
 </p>
-
-A Pytorch Dataset of images containing MNIST digits of various shapes and sizes, and their corresponding labels and box positions. 
 
 Images are generated lazily (when `__getitem__` is called) to avoid filling the RAM. Several parameters are available, such as the number of images to generate, the resolution, the size of the digits, the maximum number of digits per image, or the margin of boxes.
 
