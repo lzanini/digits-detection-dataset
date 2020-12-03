@@ -1,12 +1,14 @@
-## MNIST detection dataset
+## MNIST Detection Dataset
 
 <p align="center">
   <img src="https://github.com/lzanini/digits-detection-dataset/blob/master/img/figure.png">
 </p>
 
-I implemented this Pytorch Dataset to experiment with object detection in a simple setting. It consists of images containing one or several MNIST digits of various shapes and sizes, and their corresponding labels and box positions. Images are created lazily (when `__getitem__` is called), to avoid filling the RAM. Several parameters are available, such as the number of images to generate, the resolution, the size of the digits, the maximum number of digits per image, or the margin of boxes. It can also be generated from either the train or the test MNIST partition.
+A Pytorch Dataset of images containing MNIST digits of various shapes and sizes, and their corresponding labels and box positions. 
 
-The mnist dataset will be downloaded and saved in the folder `mnist_root` when the program runs for the first time; it will then be loaded from the disk.
+Images are generated lazily (when `__getitem__` is called) to avoid filling the RAM. Several parameters are available, such as the number of images to generate, the resolution, the size of the digits, the maximum number of digits per image, or the margin of boxes.
+
+When the program runs for the first time, the original mnist dataset will be downloaded and saved in the folder `mnist_root`.
 
 ## Usage
 
@@ -23,11 +25,4 @@ dataset = DigitsDetectionDataset(mnist_root="../data/",
                                  margin=6)
 
 image, (classes, boxes) = dataset[0]
-```
-
-```
-> Cropping Mnist images...
-> 59999/60000  (Elapsed time: 4.84 sec.)
-> Building Digits Detection dataset...
-> 99999/100000  (Elapsed time: 10.3 sec.)
 ```
