@@ -1,12 +1,12 @@
 ## MNIST Detection Dataset
 
-A Pytorch Dataset containing non-overlaping MNIST digits of various shapes and sizes, with their corresponding labels and box positions. 
+A Pytorch dataset containing non-overlaping MNIST digits of various shapes and sizes, with their corresponding labels and box positions. 
 
 <p align="center">
   <img src="https://github.com/lzanini/digits-detection-dataset/blob/master/img/figure.png">
 </p>
 
-Images are computed lazily (when `__getitem__` is called) to avoid filling the RAM. Several parameters are available, such as the number of images to generate, the resolution, the size of the digits, the maximum number of digits per image, or the margin of boxes.
+Images are generated lazily (when `__getitem__` is called) to avoid filling the RAM. Several parameters are available, such as the number of images to generate, the resolution, the size of the digits, the maximum number of digits per image, and the margin of boxes.
 
 When the program runs for the first time, the original mnist dataset will be downloaded and saved in the folder `mnist_root`.
 
